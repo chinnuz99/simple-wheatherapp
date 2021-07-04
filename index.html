@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/d56d18e9db.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-4 mt-5"></div>
+            <div class="col-4 text"> 
+                <i class="fas fa-3x fa-cloud-rain p-2" style="background-color: lightseagreen; color: rgb(114, 242, 247)"></i>
+                <i class="fas fa-3x fa-cloud-showers-heavy p-2" style=" background-color: lightseagreen; color:rgb(132, 252, 232)"></i>
+                <i class="fas fa-3x fa-sun p-2" style="background-color: lightseagreen; color: yellow"></i>
+                <i class="fas fa-3x fa-wind p-2" style=" background-color: lightseagreen; color: black"></i>
+            </div>
+            <div class="col-4"></div>
+
+        </div>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4 imp">
+                <p class="fs-3  " style="color: rgb(45, 3, 100) "><b>WEATHER FORECAST</b></p>
+                <input type="text" placeholder="Enter City Name" style="width: 150px; height: 50px; color: darkblue;"
+                    id="country">
+                <button onclick="fetchcity()"
+                    style="width: 150px; height: 50px; background-color: purple;">Submit</button>
+            </div>
+            <div class="col-4"></div>
+        </div>
+        <div class="row  ">
+            <div class="col-4"></div>
+            <div class="col-4 mt-5" id=result>
+            </div>
+            <div class="col-4"></div>
+        </div>
+
+
+    </div>
+</body>
+<script>
+    function displayValues(city) {
+        let temperature = city.list[0].main.temp
+        let humidity = city.list[0].main.humidity
+        let weather = city.list[0].weather[0].main
+        let windspeed = city.list[0].wind.speed
+        let pressure = city.list[0].main.pressure
+
+
+        console.log(temperature, humidity, weather, windspeed, pressure)
+        let html_data = `<div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <p class="card-title"> <i class="temp fas fa-temperature-low"></i>Temperature:${temperature}</p>
+            <p class="card-text">  <i class="hum fas fa-tint" ></i>Humidity:${humidity} </p>
+            <p class="card-text">  <i class=" weath fas fa-cloud"></i> Weather:${weather}</p>
+            <p class="card-text">  <i class=" wind fas fa-wind"></i>Windspeed:${windspeed}</p>
+            <p class="card-text">  <i class="pre fas fa-compress"></i>Pressure:${pressure}</p>
+
+        </div>
+        </div>`
+        result.innerHTML = html_data
+    }
+    function fetchcity() {
+        let city_name = country.value;
+        let api_key = "0bc1d2c51dc669f57469500f4a23202b"
+        let url = `https://api.openweathermap.org/data/2.5/find?q=${city_name}&units=metric&appid=${api_key}`
+        fetch(url).then(res => {
+            if (!(res.ok)) {
+                throw new Error("failed to fetch data")
+
+            }
+            else {
+                return res.json()
+            }
+        }).then(data => displayValues(data)).catch(error => alert(error.message))
+    }
+
+
+</script>
+
+</html>

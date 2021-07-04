@@ -1,0 +1,30 @@
+
+body{
+    background-image: url("https://listverse.com/wp-content/uploads/2014/01/156508091-e1388734902591.jpg");
+    background-size: cover;
+}
+.temp{
+    color: darkgoldenrod;
+
+}
+.hum{
+    color: lightskyblue;
+}
+.weath{
+    color: rgb(94, 238, 219);
+}
+.wind{
+    color: rgb(11, 12, 12);
+}
+
+.pre{
+    color: darkkhaki;
+}
+.imp{
+    text-align: center;
+}
+.text{
+    text-align: center;
+}
+    
+
